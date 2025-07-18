@@ -1,20 +1,3 @@
-# Verilog Simulation & Vivado Generated Files
-*.log
-*.jou
-*.vcd
-*.wlf
-*.svf
-*.db
-*.out
-*.tmp
-*.bak
-*.runs/
-*.cache/
-*.hw/
-*.sim/
-*.Xil/
-*.ip_user_files/
-*.xpr
-*.dcp
-*.bit
-*.vvp
+*.v linguist-language=Verilog
+*.sv linguist-language=SystemVerilog
+*.tcl linguist-detectable=false
