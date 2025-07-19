@@ -1,38 +1,128 @@
-# Digital-Signal-Processing-Modules
-A parameterized, pipelined Digital Signal Processor core in Verilog HDL with pre-adder, multiplier, and post-adder components. Features configurable operation modes, multiple register stages, and comprehensive verification. Fully implemented on FPGA with Xilinx Vivado, demonstrating RTL design and verification expertise. Pipelined DSP Core A parameterized Digital Signal Processor (DSP) implementation in Verilog HDL with complete verification and FPGA synthesis. Overview This project implements a configurable DSP slice similar to those found in modern FPGAs. The design features a pipelined architecture with pre-adder, multiplier, and post-adder units, supporting various operation modes for efficient signal processing. Features
+# Digital Signal Processing (DSP) Modules
 
-18-bit input operands (A, B, D) 48-bit input operand (C) 36-bit multiplier output (M) 48-bit post-adder output (P) Configurable pipeline stages Parameterized operation modes Synchronous/asynchronous reset options Full clock enable control for all register stages
+[![Language](https://img.shields.io/badge/Language-Verilog-blue.svg)](https://www.verilog.com/) [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Architecture The DSP core consists of:
+---
 
-Input Processing
+## 📖 Introduction
 
-Registers for A, B, C, D inputs with independent clock enables Optional two-stage pipeline for A inputs (A0REG, A1REG) Optional two-stage pipeline for B inputs (B0REG, B1REG)
+This repository contains a configurable **DSP slice** implemented in Verilog HDL. It supports pipelined arithmetic operations including:
 
-Pre-Adder/Subtractor
+* **Pre‑Adder**
+* **Multiplier**
+* **Post‑Adder**
 
-Performs D+B or D-B operations based on OPMODE
+The design targets FPGA-based applications and can be easily integrated into larger systems for high-performance digital signal processing tasks.
 
-Multiplier
+---
 
-18x18 bit multiplication with registered output (MREG) Processes A and B inputs after the pre-adder stage
+## 🚀 Features
 
-Post-Adder
+* **Fully Pipelined**: Configurable pipeline stages for high throughput.
+* **Configurable Data Width**: Supports 18×18 and 36×36 multiplication modes.
+* **Modular Design**: Separate modules for pre‑adder, multiplier, and post‑adder.
+* **Testbenches Included**: Comprehensive Verilog and SystemVerilog testbenches.
+* **FPGA Support**: Constraints provided for Xilinx Vivado.
 
-Configurable operation based on OPMODE signals Supports accumulation with previous results Selectable inputs from multiple sources
+---
 
-Implementation Details
+## 📂 Directory Structure
 
-Coded in Verilog HDL Synthesized using Xilinx Vivado Verified with comprehensive testbench 100% toggle coverage achieved XDC constraints file included
+```
+├── rtl/                  # RTL source files
+│   ├── pre_adder.v      # Pre‑adder module
+│   ├── multiplier.v     # Multiplier module
+│   ├── post_adder.v     # Post‑adder module
+│   └── dsp_slice.v      # Top‑level DSP slice wrapper
+├── verification/        # Testbenches
+│   ├── dsp_tb.v         # Verilog testbench
+│   └── dsp_tb.sv        # SystemVerilog testbench
+├── constraints/         # FPGA constraints (XDC for Vivado)
+│   └── dsp_slice.xdc    # Pin assignments and timing constraints
+├── docs/                # Documentation and reports
+│   └── coverage/        # Coverage reports (HTML/PDF)
+├── images/              # Simulation waveforms and block diagrams
+│   └── waveform.png     # Example output waveform
+├── .gitattributes       # Force linguist to treat `.v` as Verilog
+├── LICENSE              # Project license (MIT)
+└── README.md            # Project overview and instructions
+```
 
-Directory Structure ├── rtl/ # RTL design files │ ├── DSP.v # Main DSP module │ ├── mux.v # Multiplexer implementation │ ├── mux_4.v # 4-to-1 multiplexer │ └── post_adder.v # Post-adder implementation ├── verification/ # Verification files │ ├── DSP_tb.v # Verilog testbench │ └── DSP_tb.sv # SystemVerilog testbench ├── constraints/ # FPGA implementation constraints │ └── Constraints_mini.xdc ├── images/ # Project screenshots └── docs/ # Additional documentation └── coverage_rpt.txt # Coverage report Usage Simulation To simulate the design:
+---
 
-Clone the repository Navigate to the verification directory Run the testbench with your preferred simulator: iverilog -o dspsim DSP_tb.v ../rtl/*.v vvp dspsim
+## 🔧 Getting Started
 
-FPGA Implementation To implement on an FPGA:
+### Prerequisites
 
-Add all RTL files to your Vivado project Include the constraint file for proper timing Run synthesis and implementation Program your device with the generated bitstream
+* **Verilog Simulator**: Icarus Verilog, ModelSim, or QuestaSim
+* **FPGA Toolchain**: Xilinx Vivado 2020.2 or later (for synthesis)
+* **Make** (optional): For simplified build scripts
 
-Acknowledgments
+### Installation & Build
 
-Based on modern DSP slice architectures found in FPGAs Designed as part of digital design coursework
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/Eng-AbdallahSabah/Digital-Signal-Processing-Modules.git
+   cd Digital-Signal-Processing-Modules
+   ```
+
+2. **Run simulation**
+
+   ```bash
+   make sim
+   ```
+
+3. **Synthesize for FPGA** (Vivado)
+
+   ```bash
+   vivado -mode batch -source build_synth.tcl
+   ```
+
+---
+
+## 🧪 Simulation & Verification
+
+1. **Verilog Testbench**
+
+   ```bash
+   iverilog -o dsp_tb rtl/*.v verification/dsp_tb.v
+   vvp dsp_tb
+   ```
+2. **SystemVerilog Testbench**
+
+   ```bash
+   vcs -sverilog rtl/*.v verification/dsp_tb.sv -R
+   ```
+
+![Waveform Example](images/waveform.png)
+
+Coverage reports are available in `docs/coverage/`.
+
+---
+
+## 📈 Synthesis & Implementation
+
+* Constraints file: `constraints/dsp_slice.xdc`
+* Top‑level entity: `dsp_slice`
+* Clock frequency target: 200 MHz (pipelined)
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b feature/YourFeature`.
+3. Commit your changes: `git commit -m "Add YourFeature"`.
+4. Push to the branch: `git push origin feature/YourFeature`.
+5. Open a Pull Request.
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
