@@ -95,7 +95,7 @@ The design targets FPGA-based applications and can be easily integrated into lar
    vcs -sverilog rtl/*.v verification/dsp_tb.sv -R
    ```
 
-![Waveform Example](images/waveform.png)
+![Waveform Example](https://github.com/Eng-AbdallahSabah/Digital-Signal-Processing-Modules/blob/main/images/Wave%20form.png)
 
 Coverage reports are available in `docs/coverage/`.
 
